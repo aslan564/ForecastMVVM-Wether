@@ -57,16 +57,22 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
 
     private fun binUi() = launch {
         val currentWeather = viewModel.weather.await()
+        val weatherLocation = viewModel.weatherLocaltion.await()
+        weatherLocation.observe(this@CurrentWeatherFragment.viewLifecycleOwner, Observer {location->
+            if (location == null) return@Observer
+            updateLocation(location.name)
+        })
+
         currentWeather.observe(this@CurrentWeatherFragment.viewLifecycleOwner, Observer {
             if (it == null) return@Observer
             group_loading.visibility = View.GONE
 
-            updateLocation("Paris")
+
             updateDayToday()
-            updateTemperature(it.temperature,it.feelsLikeTemperature)
+            updateTemperature(it.temperature, it.feelsLikeTemperature)
             updateCondition(it.conditionText)
             updatePercipitation(it.precipitationVolume)
-            updateWind(it.windDirection,it.windSpeed)
+            updateWind(it.windDirection, it.windSpeed)
             updateVisiblity(it.visibilityDistance)
             GlideApp.with(this@CurrentWeatherFragment)
                 .load("http:${it.conditionIconUrl}")
@@ -87,7 +93,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateTemperature(temperature: Double, feelsLike: Double) {
-        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation( " C" , " F")
+        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation(" C", " F")
         textView_temperature.text = "$temperature$unitAbbrevation"
         textView_feels_like_temperature.text = "Feels Like $feelsLike$unitAbbrevation"
     }
@@ -97,15 +103,17 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updatePercipitation(precipitationVolume: Double) {
-        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation( " mm" , " in")
+        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation(" mm", " in")
         textView_precipitation.text = "Percipitation $precipitationVolume $unitAbbrevation"
     }
-    private fun updateWind(windDirection:String,windSpeed: Double) {
-        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation( " khp" , " mhp")
+
+    private fun updateWind(windDirection: String, windSpeed: Double) {
+        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation(" khp", " mhp")
         textView_wind.text = "Wind $windDirection $windSpeed $unitAbbrevation"
     }
+
     private fun updateVisiblity(visiblityDistance: Double) {
-        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation( " km" , " mi")
+        val unitAbbrevation = choseUnitLocalizedUnitAbbrevation(" km", " mi")
         textView_visibility.text = "Visiblity $visiblityDistance $unitAbbrevation"
     }
 
