@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs.kotlin"
 android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -35,6 +36,8 @@ android {
 androidExtensions {
     experimental = true
 }
+def nav_version = "2.3.0"
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -90,4 +93,11 @@ dependencies {
 
     // WeatherLocation
     implementation "com.google.android.gms:play-services-location:16.0.0"
+
+    // Groupie RecyclerView
+    implementation 'com.xwray:groupie:2.1.0'
+     implementation 'com.xwray:groupie-kotlin-android-extensions:2.1.0'
+
 }
+
+

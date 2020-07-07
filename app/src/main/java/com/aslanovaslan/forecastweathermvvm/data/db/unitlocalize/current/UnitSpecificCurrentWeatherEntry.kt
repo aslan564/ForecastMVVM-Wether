@@ -1,4 +1,4 @@
-package com.aslanovaslan.forecastweathermvvm.data.db.unitlocalize
+package com.aslanovaslan.forecastweathermvvm.data.db.unitlocalize.current
 
 
 interface UnitSpecificCurrentWeatherEntry {

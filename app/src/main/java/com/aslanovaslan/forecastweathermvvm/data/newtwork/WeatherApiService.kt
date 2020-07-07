@@ -1,6 +1,7 @@
 package com.aslanovaslan.forecastweathermvvm.data.newtwork
 
 import com.aslanovaslan.forecastweathermvvm.data.newtwork.response.CurrentWeatherResponse
+import com.aslanovaslan.forecastweathermvvm.data.newtwork.response.FeatureWeatherResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
@@ -22,14 +23,14 @@ interface WeatherApiService {
     ): Deferred<CurrentWeatherResponse>
 
 
-    // https://api.apixu.com/v1/forecast.json?key=89e8bd89085b41b7a4b142029180210&q=Los%20Angeles&days=1
-    /*  @GET("forecast.json")
+    // https://api.weatherapi.com/v1/forecast.json?key=bb150486e81346249cd132033200307&q=Los%20Angels&days=1
+    @GET("forecast.json")
       fun getFutureWeather(
           @Query("q") location: String,
           @Query("days") days: Int,
           @Query("lang") languageCode: String = "en"
-      ): Deferred<FutureWeatherResponse>
-  */
+      ): Deferred<FeatureWeatherResponse>
+
     companion object {
         operator fun invoke(
             connectivityInterceptor: ConnectivityInterceptor

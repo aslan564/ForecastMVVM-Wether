@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.aslanovaslan.forecastweathermvvm.ui.weather.current
 
 import androidx.lifecycle.ViewModelProviders
@@ -36,28 +38,11 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
             ViewModelProviders.of(this, viewModelFactory).get(CurrentWeatherViewModel::class.java)
         // TODO: Use the ViewModel
         binUi()
-
-        /*
-        val apiService =
-            WeatherApiService(ConnectivityInterceptorImpl(this.requireContext()))
-
-         val weatherNetworkDataSource = WeatherNetworkDataSourceImpl(apiService)
-          weatherNetworkDataSource.downloadedCurrentWeather.observe(
-              this.viewLifecycleOwner,
-              Observer {
-                  text_wiew3.text = it.currentWeatherEntry.toString()
-
-              })
-          GlobalScope.launch(Dispatchers.Main) {
-              weatherNetworkDataSource.fetchCuerrentWeather("Paris", "en")
-              //  println(weatherResponse.location.toString())
-          }*/
-
     }
 
     private fun binUi() = launch {
         val currentWeather = viewModel.weather.await()
-        val weatherLocation = viewModel.weatherLocaltion.await()
+        val weatherLocation = viewModel.weatherLocation.await()
         weatherLocation.observe(this@CurrentWeatherFragment.viewLifecycleOwner, Observer {location->
             if (location == null) return@Observer
             updateLocation(location.name)
@@ -81,7 +66,7 @@ class CurrentWeatherFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun choseUnitLocalizedUnitAbbrevation(metric: String, imperial: String): String {
-        return if (viewModel.isMetric) metric else imperial
+        return if (viewModel.isMetricunit) metric else imperial
     }
 
     private fun updateLocation(location: String) {

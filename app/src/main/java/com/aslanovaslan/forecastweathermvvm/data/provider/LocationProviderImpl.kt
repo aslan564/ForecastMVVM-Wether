@@ -37,10 +37,10 @@ class LocationProviderImpl(
                 val deviceLocation = getLastDeviceLocation().await()
                     ?: return "${getCustomeLocationName()}"
                 return "${deviceLocation.latitude},${deviceLocation.longitude}"
-            } catch (e:LocationPermissionNotGrantedException) {
+            } catch (e: LocationPermissionNotGrantedException) {
                 return "${getCustomeLocationName()}"
             }
-        }else
+        } else
             return "${getCustomeLocationName()}"
     }
 
@@ -57,8 +57,11 @@ class LocationProviderImpl(
     }
 
     private fun hasCustomeLocationChanged(lastWeatherLocation: WeatherLocation): Boolean {
-        val customLocationName = getCustomeLocationName()
-        return customLocationName != lastWeatherLocation.name
+        if (!isUsingDeviceLocation()) {
+            val customLocationName = getCustomeLocationName()
+            return customLocationName != lastWeatherLocation.name
+        }
+        return false
     }
 
     private fun isUsingDeviceLocation(): Boolean {
