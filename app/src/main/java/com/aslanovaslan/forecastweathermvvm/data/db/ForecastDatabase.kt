@@ -8,7 +8,6 @@ import androidx.room.TypeConverters
 import com.aslanovaslan.forecastweathermvvm.data.db.entity.CurrentWeatherEntry
 import com.aslanovaslan.forecastweathermvvm.data.db.entity.FutureWeatherEntry
 import com.aslanovaslan.forecastweathermvvm.data.db.entity.WeatherLocation
-import okhttp3.internal.Internal.instance
 
 @Database(
     entities = [CurrentWeatherEntry::class,FutureWeatherEntry::class,WeatherLocation::class],

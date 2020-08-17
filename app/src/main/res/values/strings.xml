@@ -3,4 +3,7 @@
     <string name="today">Today</string>
     <string name="loading">Loading</string>
     <string name="condition">condition</string>
+    <string name="patchy_rain_posible">Patchy rain posible</string>
+    <string name="_25_0_c">25.0 C</string>
+    <string name="feels_like_20_4_c">Feels like 20.4 C</string>
 </resources>
